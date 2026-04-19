@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>منصتي · واجهة ثابتة</title>
+  <!-- Font Awesome & Google Fonts -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;800&display=swap" rel="stylesheet">
+  <style>
+  *{margin:0!important;padding:0!important;}body{height:100vh;display:flex;flex-direction:column;}.image-banner{height:15vh;flex:0 0 15vh;}.auth-section{height:25vh;flex:0 0 25vh;}.iframe-section{height:60vh;flex:0 0 60vh;display:flex;}.iframe-section iframe{flex:1;height:100%;}
+  
+  body{display:flex;flex-direction:column;height:100vh;margin:0;padding:0;}.image-banner{height:15vh;flex-shrink:0;}.auth-section{height:25vh;flex-shrink:0;}.iframe-section{height:60vh;flex-shrink:0;}
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Tajawal', 'Segoe UI', sans-serif;
+    }
+
+  * { margin: 0 !important; padding: 0 !important; } .auth-card { gap: 2px; padding: 5px !important; } h2, .sub, .header-icon, label, .toggle-link span { display: none; }
+    bmdy {
+      background: #0b1120;
+      height: 100vh;
+      width: 100vw;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+  
+    .main-wrapper {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* ========= قسم التسجيل: 40% ========= */
+    .auth-section {
+      height: 49vh;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      padding: 0;
+      margin: 0;
+      flex-shrink: 0;
+    }
+.auth-card { width: auto; min-width: 350px; max-width: 300px; height: auto; min-height: auto; padding: 1px 5px !important; display: flex; flex-direction: column; justify-content: center; align-items: stretch; }
+.auth-section { height: auto; max-height: 20vh; align-items: flex-start; padding-top: 1px; }
+.form-group { margin: 5px 0 !important; }
+.btn { margin: 5px 0 0 0 !important; }
+  .auth-camd {
+  width: 1850px;
+  max-width: 90vw;
+  height: auto;
+  min-height: 250px;
+  background: linear-gradient(145deg, rgba(220, 240, 255, 0.97), rgba(180, 215, 250, 0.92), rgba(140, 200, 255, 0.85));
+  backdrop-filter: blur(12px);
+  border: 3px solid rgba(255, 255, 255, 0.9);
+  border-radius: 30px 10px 30px 10px;
+  box-shadow: 
+    0 25px 45px rgba(0, 20, 40, 0.5),
+    0 0 30px rgba(255, 255, 255, 0.7),
+    inset 0 -8px 15px rgba(0, 0, 0, 0.08),
+    inset 0 8px 20px rgba(255, 255, 255, 0.9),
+    0 0 0 2px rgba(200, 230, 255, 0.5);
+  transform: perspective(1200px) rotateY(-8deg) rotateX(4deg) scale(0.9);
+  padding: 2px 3px;
+}
+    .authhard {
+      background: rgba(255, 255, 255, 0.97);
+      width: 100%;
+      max-width: 480px;
+      height: 100%;
+      max-height: 100%;
+      border-radius: 0;
+      padding: 8px 12px;
+      box-shadow: 0 25px 45px rgba(0,0,0,0.35);
+      transform: perspective(1000px) rotateY(-5deg) rotateX(2deg) scale(599.35);
+      transform-origin: center;
+      border: none;
+      background: linear-gradient(rgba(255,255,255,0.95),rgba(255,255,255,0.95)) padding-box,
+                  linear-gradient(135deg,#fbbf24,#ec4899,#8b5cf6,#06b6d4,#fbbf24) border-box;
+      box-shadow: -15px 15px 30px rgba(0,0,0,0.3), -5px 5px 15px rgba(251,191,36,0.2), inset 0 0 30px rgba(255,255,255,0.3);
+      animation: rotate3d 8s ease-in-out infinite;
+      transition: all 0.3s;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      overflow-y: auto;
+    }
+
+    .auth-card::-webkit-scrollbar { display: none; }
+
+    @keyframes rotate3d {
+      0%,100%{ transform: perspective(1000px) rotateY(-5deg) rotateX(2deg) scale(0.35); }
+      50%{ transform: perspective(1000px) rotateY(5deg) rotateX(-2deg) scale(0.35); }
+    }
+
+    .header-icon {
+      text-align: center;
+      margin-bottom: 4px;
+    }
+    .header-icon i {
+      font-size: 28px;
+      color: #fbbf24;
+    }
+    h2 {
+      color: #0f172a;
+      font-size: 16px;
+      font-weight: 800;
+      text-align: center;
+      margin-bottom: 2px;
+    }
+    .sub {
+      text-align: center;
+      color: #64748b;
+      margin-bottom: 8px;
+      font-size: 10px;
+    }
+
+    .form-group {
+      margin-bottom: 4px;
+    }
+    label {
+      display: block;
+      margin-bottom: 2px;
+      font-weight: 600;
+      color: #1e293b;
+      font-size: 10px;
+    }
+    label i {
+      margin-left: 4px;
+      color: #fbbf24;
+      font-size: 9px;
+    }
+    input {
+      width: 100%;
+      padding: 4px 8px;
+      border: 2px solid #e2e8f0;
+      border-radius: 10px;
+      font-size: 11px;
+      background: #fafcff;
+      transition: 0.2s;
+      direction: ltr;
+      text-align: right;
+    }
+    input:focus {
+      border-color: #fbbf24;
+      outline: none;
+      background: white;
+    }
+    .error-msg {
+      color: #ef4444;
+      font-size: 8px;
+      margin-top: 2px;
+      display: none;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 6px;
+      background: linear-gradient(135deg, #fbbf24, #f59e0b);
+      border: none;
+      border-radius: 14px;
+      font-size: 12px;
+      font-weight: bold;
+      color: #0f172a;
+      cursor: pointer;
+      margin-top: 4px;
+      transition: 0.2s;
+    }
+    .btn:hover {
+      background: linear-gradient(135deg, #f59e0b, #fbbf24);
+      transform: scale(1.01);
+    }
+
+    .toggle-link {
+      text-align: center;
+      margin-top: 8px;
+      padding-top: 6px;
+      border-top: 1px solid #e2e8f0;
+      color: #334155;
+      font-size: 10px;
+    }
+    .toggle-link a {
+      color: #f59e0b;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+      margin-right: 4px;
+      font-size: 10px;
+    }
+
+    /* ========= مربع العرض: 60% ========= */
+    .iframe-section {
+      height: 70vh;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      border: none;
+      border-radius: 0;
+      overflow: hidden;
+      background: #0f172a;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+    }
+
+    .iframe-header {
+      background: #1e293b;
+      padding: 8px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: #fbbf24;
+      border-bottom: 1px solid #334155;
+      flex-shrink: 0;
+    }
+    .iframe-header .url {
+      background: #0f172a;
+      padding: 4px 14px;
+      border-radius: 40px;
+      font-size: 13px;
+      color: #cbd5e1;
+      direction: ltr;
+    }
+    .iframe-header i {
+      margin: 0 4px;
+    }
+
+    iframe {
+      width: 100%;
+      flex: 1;
+      border: none;
+      display: block;
+      background: white;
+    }
+
+    /* تحميل وتوست */
+  
+    .loading {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+    }
+    .spinner {
+      background: white;
+      padding: 28px 32px;
+      border-radius: 32px;
+      text-align: center;
+    }
+    .spinner i {
+      font-size: 40px;
+      color: #fbbf24;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin { 0%{transform:rotate(0);} 100%{transform:rotate(360deg);} }
+
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      left: 20px;
+      right: 20px;
+      background: #1e293b;
+      color: white;
+      padding: 14px 20px;
+      border-radius: 40px;
+      text-align: center;
+      font-weight: 600;
+      z-index: 1000;
+      opacity: 0;
+      transition: 0.25s;
+      pointer-events: none;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+    .toast.show {
+      opacity: 1;
+      bottom: 36px;
+    }
+
+  .image-banner{height:20vh !important;flex:0 0 20vh !important;position:relative;z-index:1;}
+  .auth-section,.iframe-section,.image-banner{border:4px solid rgba(255,255,255,0.8);border-radius:20px;box-shadow:0 15px 35px rgba(0,50,80,0.3),0 0 0 2px #a0e0ff,0 0 0 5px rgba(200,240,255,0.5),inset 0 0 30px rgba(255,255,255,0.7);transform:translateZ(0);backface-visibility:hidden;-webkit-transform:translateZ(0);}
+  body{background:radial-gradient(circle at 30% 20%,#e0f7fa,#a0d8ef,#6ec6e8,#2a9dcc);background-size:300% 300%;animation:iceFog 10s ease infinite;box-shadow:inset 0 0 80px rgba(255,255,255,0.6),inset 0 0 150px rgba(180,230,255,0.4);}@keyframes iceFog{0%,100%{background-position:0% 0%;}50%{background-position:100% 100%;}}
+  .image-banner{height:50vh !important;width:100%;background-size:cover;background-position:center;flex-shrink:0;}
+    html, body {
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="image-banner" style="background:url('https://iili.io/BwbUOhv.gif') center/cover;"></div>
+<div class="main-wrapper">
+  <!-- قسم التسجيل مصغر جداً -->
+  <div class="auth-section">
+    <div class="auth-card" id="appContainer">
+      <!-- نموذج تسجيل الدخول -->
+      <div id="loginSection">
+        <div class="header-icon"><i class="fas fa-cown"></i></div>
+      
+      
+
+        <div class="form-group">
+          
+          <input type="email" id="loginEmail" placeholder="البريد الالكتروني" dir="ltr">
+          <div class="error-msg" id="loginEmailError"></div>
+        </div>
+        <div class="form-group">
+        
+          <input type="password" id="loginPassword" placeholder="••••••••">
+          <div class="error-msg" id="loginPasswordError"></div>
+        </div>
+
+        <button class="btn" id="loginBtn"><i class="fas fa-sign-in-alt"></i> دخول</button>
+
+        <div class="toggle-link">
+          
+          <a id="showRegisterLink">إنشاء حساب</a>
+        </div>
+      </div>
+<div style="display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#10b981,#059669);padding:8px 16px;border-radius:40px;box-shadow:0 8px 20px rgba(16,185,129,0.3),inset 0 1px 0 rgba(255,255,255,0.5);border:1px solid rgba(255,255,255,0.3);"><i class="fas fa-user-check" style="color:white;font-size:16px;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));"></i><span style="color:white;font-weight:700;font-size:14px;text-shadow:0 2px 4px rgba(0,0,0,0.15);">متواجدون الآن</span></div>
+      <!-- نموذج التسجيل (بريد ورمز سري فقط) -->
+      <div id="registerSection" style="display: none;">
+        <div class="header-icon"><i class="fas fa-uer-plus"></i></div>
+        
+        
+
+        <div class="form-group">
+          
+          <input type="email" id="regEmail" placeholder="البريد الالكتروني" dir="ltr">
+          <div class="error-msg" id="regEmailError"></div>
+        </div>
+        <div class="form-group">
+          
+          <input type="password" id="regPassword" placeholder="كلمة المرور">
+          <div class="error-msg" id="regPasswordError"></div>
+        </div>
+
+        <button class="btn" id="registerBtn"><i class="fas fa-user-check"></i> إنشاء الحساب</button>
+
+        <div class="toggle-link">
+          <span>لديك حساب؟</span>
+          <a id="showLoginLink">تسجيل الدخول</a>
+          
+        </div>
+        
+      </div>
+      
+    </div>
+  </div>
+
+  <!-- مربع العرض ثابت -->
+  
+  
+  <div class="iframe-section">
+    
+    <iframe src="https://amanhsn55555-eng.github.io/User-wagh/" title="موقع Grftodyyy"></iframe>
+  </div>
+</div>
+
+<!-- اللودر -->
+<div class="loading" id="loadingOverlay">
+  <div class="spinner">
+    <i class="fas fa-spinner"></i>
+    <p style="margin-top: 14px; color:#0f172a;">جاري التحويل...</p>
+  </div>
+</div>
+
+<!-- توست -->
+<div class="toast" id="toastMsg"></div>
+
+<!-- Firebase & Script -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js";
+  import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
+  import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyDYKCCTcurNcJslrNKqdiJCoIIK-YZArB4",
+    authDomain: "sbaq-fc46f.firebaseapp.com",
+    projectId: "sbaq-fc46f",
+    storageBucket: "sbaq-fc46f.firebasestorage.app",
+    appId: "1:1026865750415:web:0ee39a717bcafaa0d06bfa"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  const TARGET_URL = "https://amanhsn55555-eng.github.io/Bage-2-chat/";
+
+  const loginSection = document.getElementById('loginSection');
+  const registerSection = document.getElementById('registerSection');
+  const loadingOverlay = document.getElementById('loadingOverlay');
+  const toast = document.getElementById('toastMsg');
+
+  const loginEmail = document.getElementById('loginEmail');
+  const loginPassword = document.getElementById('loginPassword');
+  const loginBtn = document.getElementById('loginBtn');
+  const regEmail = document.getElementById('regEmail');
+  const regPassword = document.getElementById('regPassword');
+  const registerBtn = document.getElementById('registerBtn');
+
+  function showToastMsg(msg, isSuccess = true) {
+    toast.textContent = msg;
+    toast.style.background = isSuccess ? '#10b981' : '#ef4444';
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 3000);
+  }
+
+  function showLoading(show) {
+    loadingOverlay.style.display = show ? 'flex' : 'none';
+  }
+
+  function clearErrors() {
+    document.querySelectorAll('.error-msg').forEach(el => { el.style.display = 'none'; });
+    document.querySelectorAll('input').forEach(i => i.classList.remove('error'));
+  }
+
+  function showFieldError(fieldId, msg) {
+    const field = document.getElementById(fieldId);
+    const err = document.getElementById(fieldId + 'Error');
+    if(field) field.classList.add('error');
+    if(err) { err.textContent = msg; err.style.display = 'block'; }
+  }
+
+  function generateId() {
+    return Math.floor(100000 + Math.random() * 900000).toString();
+  }
+
+  function redirectToTarget() {
+    window.location.href = TARGET_URL;
+  }
+
+  async function handleLogin() {
+    clearErrors();
+    const email = loginEmail.value.trim();
+    const pass = loginPassword.value;
+    let valid = true;
+    if (!email) { showFieldError('loginEmail', 'البريد مطلوب'); valid = false; }
+    if (!pass) { showFieldError('loginPassword', 'كلمة المرور مطلوبة'); valid = false; }
+    if (!valid) return;
+
+    showLoading(true);
+    try {
+      await signInWithEmailAndPassword(auth, email, pass);
+      showToastMsg('تم الدخول بنجاح، جاري التحويل...');
+      setTimeout(() => { redirectToTarget(); }, 800);
+    } catch (err) {
+      let msg = 'بيانات الدخول غير صحيحة';
+      if (err.code === 'auth/user-not-found') msg = 'الحساب غير موجود';
+      else if (err.code === 'auth/wrong-password') msg = 'كلمة مرور خاطئة';
+      showToastMsg(msg, false);
+    } finally {
+      showLoading(false);
+    }
+  }
+
+  async function handleRegister() {
+    clearErrors();
+    const email = regEmail.value.trim();
+    const pass = regPassword.value;
+    let valid = true;
+    if (!email) { showFieldError('regEmail', 'البريد مطلوب'); valid = false; }
+    if (!pass || pass.length < 6) { showFieldError('regPassword', '6 أحرف على الأقل'); valid = false; }
+    if (!valid) return;
+
+    showLoading(true);
+    try {
+      const cred = await createUserWithEmailAndPassword(auth, email, pass);
+      const userId = generateId();
+      const userData = {
+        uid: cred.user.uid,
+        email: email,
+        name: 'مستخدم',
+        userId: userId,
+        emoji: '😎',
+        createdAt: new Date().toISOString()
+      };
+      try {
+        await setDoc(doc(db, "users", cred.user.uid), userData);
+        await setDoc(doc(db, "users_by_id", userId), { uid: cred.user.uid });
+        await setDoc(doc(db, "resources", cred.user.uid), { gold: 10, money: 1000 });
+      } catch (e) { /* تجاهل */ }
+
+      showToastMsg('تم إنشاء الحساب، جاري التحويل...');
+      setTimeout(() => { redirectToTarget(); }, 800);
+    } catch (err) {
+      let msg = 'فشل التسجيل';
+      if (err.code === 'auth/email-already-in-use') msg = 'البريد مستخدم مسبقاً';
+      showToastMsg(msg, false);
+    } finally {
+      showLoading(false);
+    }
+  }
+
+  document.getElementById('showRegisterLink').addEventListener('click', (e) => {
+    e.preventDefault();
+    loginSection.style.display = 'none';
+    registerSection.style.display = 'block';
+    clearErrors();
+  });
+
+  document.getElementById('showLoginLink').addEventListener('click', (e) => {
+    e.preventDefault();
+    registerSection.style.display = 'none';
+    loginSection.style.display = 'block';
+    clearErrors();
+  });
+
+  loginBtn.addEventListener('click', handleLogin);
+  registerBtn.addEventListener('click', handleRegister);
+
+  loginPassword.addEventListener('keypress', (e) => { if(e.key==='Enter') handleLogin(); });
+  regPassword.addEventListener('keypress', (e) => { if(e.key==='Enter') handleRegister(); });
+</script>
+</body>
+</html>
