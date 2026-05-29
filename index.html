@@ -311,7 +311,7 @@
       bottom: 36px;
     }
 
-  .image-banner{height:13vh !important;flex:0 0 10vh !important;position:relative;z-index:1;}
+  .image-banner{height:13vh !important;flex:0 0 13vh !important;position:relative;z-index:1;}
   .auth-section,.iframe-section,.image-banner{border:4px solid rgba(255,255,255,0.8);border-radius:20px;box-shadow:0 15px 35px rgba(0,50,80,0.3),0 0 0 2px #a0e0ff,0 0 0 5px rgba(200,240,255,0.5),inset 0 0 30px rgba(255,255,255,0.7);transform:translateZ(0);backface-visibility:hidden;-webkit-transform:translateZ(0);}
   body{background:radial-gradient(circle at 30% 20%,#e0f7fa,#a0d8ef,#6ec6e8,#2a9dcc);background-size:300% 300%;animation:iceFog 10s ease infinite;box-shadow:inset 0 0 80px rgba(255,255,255,0.6),inset 0 0 150px rgba(180,230,255,0.4);}@keyframes iceFog{0%,100%{background-position:0% 0%;}50%{background-position:100% 100%;}}
   .image-banner{height:50vh !important;width:100%;background-size:contain !important;background-position:center;background-repeat:no-repeat !important;flex-shrink:0;background-color:#000;}
@@ -409,6 +409,29 @@
     0% { transform: translate(0, 0); }
     100% { transform: translate(-100%, 0); }
   }
+  
+  /* رسالة البيانات المحفوظة */
+  .saved-data-notice {
+    background: #f0fdf4;
+    border: 2px solid #10b981;
+    border-radius: 14px;
+    padding: 4px 8px;
+    margin-bottom: 6px;
+    text-align: center;
+    font-size: 9px;
+    color: #065f46;
+    display: none;
+  }
+  .clear-saved-btn {
+    background: #fee2e2;
+    color: #dc2626;
+    border: none;
+    padding: 2px 8px;
+    border-radius: 20px;
+    font-size: 8px;
+    cursor: pointer;
+    margin-top: 3px;
+  }
   </style>
 </head>
 <body>
@@ -447,17 +470,19 @@
     <div class="auth-card" id="appContainer">
       <!-- نموذج تسجيل الدخول -->
       <div id="loginSection">
-        <div class="header-icon"><i class="fas fa-cown"></i></div>
-      
-      
+        <div class="header-icon"><i class="fas fa-crown"></i></div>
+        
+        <!-- إشعار البيانات المحفوظة -->
+        <div class="saved-data-notice" id="savedDataNotice">
+          <i class="fas fa-check-circle"></i> بياناتك محفوظة من آخر تسجيل
+          <br><button class="clear-saved-btn" id="clearSavedDataBtn"><i class="fas fa-trash"></i> مسح</button>
+        </div>
 
         <div class="form-group">
-          
           <input type="email" id="loginEmail" placeholder="البريد الالكتروني" dir="ltr">
           <div class="error-msg" id="loginEmailError"></div>
         </div>
         <div class="form-group">
-        
           <input type="password" id="loginPassword" placeholder="••••••••">
           <div class="error-msg" id="loginPasswordError"></div>
         </div>
@@ -465,28 +490,24 @@
         <button class="btn" id="loginBtn"><i class="fas fa-sign-in-alt"></i> دخول</button>
 
         <div class="toggle-link">
-          
           <a id="showRegisterLink">إنشاء حساب</a>
         </div>
       </div>
 
       <!-- نموذج التسجيل (اسم + بريد + كلمة سر) -->
       <div id="registerSection" style="display: none;">
-        <div class="header-icon"><i class="fas fa-uer-plus"></i></div>
+        <div class="header-icon"><i class="fas fa-user-plus"></i></div>
         
         <div class="form-group">
-          
           <input type="text" id="regName" placeholder="الاسم">
           <div class="error-msg" id="regNameError"></div>
         </div>
 
         <div class="form-group">
-          
           <input type="email" id="regEmail" placeholder="البريد الالكتروني" dir="ltr">
           <div class="error-msg" id="regEmailError"></div>
         </div>
         <div class="form-group">
-          
           <input type="password" id="regPassword" placeholder="كلمة المرور">
           <div class="error-msg" id="regPasswordError"></div>
         </div>
@@ -496,9 +517,7 @@
         <div class="toggle-link">
           <span>لديك حساب؟</span>
           <a id="showLoginLink">تسجيل الدخول</a>
-          
         </div>
-        
       </div>
       
     </div>
@@ -509,14 +528,8 @@
   </marquee>
 </div>
 
-
-
   <!-- مربع العرض ثابت -->
-  
-  
-  
   <div class="iframe-section">
-    
     <h1 style="display:none;">شات حنونة قلبي</h1>
     <iframe src="https://amanhsn55555-eng.github.io/User-wagh/" title="موقع Grftodyyy"></iframe>
   </div>
@@ -690,6 +703,9 @@ function toggleDevBox(){ var box = document.getElementById("devBox"); box.style.
   const auth = getAuth(app);
   const db = getFirestore(app);
 
+  // مفتاح التخزين المحلي
+  const SAVED_LOGIN_KEY = 'savedLoginCredentials';
+  
   function showToastMsg(msg, isSuccess=true) {
     let t = document.getElementById('toastMsg');
     t.textContent = msg;
@@ -703,6 +719,38 @@ function toggleDevBox(){ var box = document.getElementById("devBox"); box.style.
   }
   function genUserId() { return Math.floor(100000 + Math.random() * 900000).toString(); }
   
+  // حفظ بيانات الدخول
+  function saveLoginCredentials(email, password) {
+    localStorage.setItem(SAVED_LOGIN_KEY, JSON.stringify({ email, password, savedAt: Date.now() }));
+  }
+  
+  // تحميل بيانات الدخول المحفوظة
+  function loadSavedCredentials() {
+    try {
+      const saved = localStorage.getItem(SAVED_LOGIN_KEY);
+      if (saved) {
+        const data = JSON.parse(saved);
+        if (data.email && data.password) {
+          document.getElementById('loginEmail').value = data.email;
+          document.getElementById('loginPassword').value = data.password;
+          document.getElementById('savedDataNotice').style.display = 'block';
+          return true;
+        }
+      }
+    } catch(e) {}
+    return false;
+  }
+  
+  // مسح البيانات المحفوظة
+  function clearSavedCredentials() {
+    localStorage.removeItem(SAVED_LOGIN_KEY);
+    document.getElementById('loginEmail').value = '';
+    document.getElementById('loginPassword').value = '';
+    document.getElementById('savedDataNotice').style.display = 'none';
+    showToastMsg('🗑️ تم مسح البيانات المحفوظة');
+  }
+  
+  // =============== نافذة التسجيل المنبثقة الكاملة ===============
   let selectedEmojiFull = '😎';
   document.querySelectorAll('.emojiOption').forEach(el => {
     el.addEventListener('click', function() {
@@ -712,8 +760,7 @@ function toggleDevBox(){ var box = document.getElementById("devBox"); box.style.
       selectedEmojiFull = this.dataset.emoji;
     });
   });
-  document.querySelectorAll('.emojiOption')[0].click(); // default
-
+  document.querySelectorAll('.emojiOption')[0].click();
   document.getElementById('fullRandomId').textContent = genUserId();
 
   async function handleFullRegister() {
@@ -742,9 +789,13 @@ function toggleDevBox(){ var box = document.getElementById("devBox"); box.style.
       await setDoc(doc(db, "users", uid), userData);
       await setDoc(doc(db, "users_by_id", userId), { uid, userId });
       await setDoc(doc(db, "resources", uid), resourcesData);
+      
+      // حفظ بيانات الدخول بعد التسجيل الناجح
+      saveLoginCredentials(email, pass);
+      
       localStorage.setItem('currentUserData', JSON.stringify({ uid, username:name, userId, emoji:selectedEmojiFull, email }));
-      showToastMsg('✅ تم التسجيل بنجاح! جاري التحويل...');
-      setTimeout(() => { window.location.href = 'https://amanhsn55555-eng.github.io/Mnstty-tody/?v='+Date.now(); }, 1500);
+      showToastMsg('✅ تم التسجيل بنجاح! تم حفظ بيانات الدخول تلقائياً. جاري التحويل...');
+      setTimeout(() => { window.location.href = 'https://amanhsn55555-eng.github.io/Bage-2-chat/?v='+Date.now(); }, 1500);
     } catch(err) {
       let msg = 'فشل التسجيل';
       if(err.code === 'auth/email-already-in-use') msg = 'البريد مستخدم مسبقاً';
@@ -762,8 +813,7 @@ function toggleDevBox(){ var box = document.getElementById("devBox"); box.style.
   closeModal.addEventListener('click', () => { modal.style.display = 'none'; });
   modal.addEventListener('click', (e) => { if(e.target === modal) modal.style.display = 'none'; });
   
-  // الكود الأصلي لتسجيل الدخول والخروج
-  // ... الحفاظ على الكود الأصلي كاملاً
+  // =============== الكود الأصلي لتسجيل الدخول والتسجيل المصغر مع حفظ البيانات ===============
   const loginEmail = document.getElementById('loginEmail');
   const loginPassword = document.getElementById('loginPassword');
   const loginBtn = document.getElementById('loginBtn');
@@ -775,6 +825,9 @@ function toggleDevBox(){ var box = document.getElementById("devBox"); box.style.
   const showLoginLink = document.getElementById('showLoginLink');
   const loginSectionDiv = document.getElementById('loginSection');
   const registerSectionDiv = document.getElementById('registerSection');
+  const clearSavedBtn = document.getElementById('clearSavedDataBtn');
+  
+  if(clearSavedBtn) clearSavedBtn.addEventListener('click', clearSavedCredentials);
   
   async function handleLoginOrig() {
     let email = loginEmail.value.trim();
@@ -783,10 +836,13 @@ function toggleDevBox(){ var box = document.getElementById("devBox"); box.style.
     showLoading(true);
     try {
       await signInWithEmailAndPassword(auth, email, pass);
+      // حفظ بيانات الدخول بعد نجاح تسجيل الدخول
+      saveLoginCredentials(email, pass);
       showToastMsg('تم الدخول بنجاح، جاري التحويل...');
-      setTimeout(() => { window.location.href = 'https://amanhsn55555-eng.github.io/Mnstty-tody/?v='+Date.now(); }, 1200);
+      setTimeout(() => { window.location.href = 'https://amanhsn55555-eng.github.io/Bage-2-chat/?v='+Date.now(); }, 1200);
     } catch(e) { showToastMsg('بيانات دخول غير صحيحة', false); } finally { showLoading(false); }
   }
+  
   async function handleRegisterOrig() {
     let name = regName.value.trim();
     let email = regEmail.value.trim();
@@ -800,15 +856,25 @@ function toggleDevBox(){ var box = document.getElementById("devBox"); box.style.
       await setDoc(doc(db, "users", uid), { uid, email, username: name, userId, emoji:'😎', colors:{}, createdAt:new Date().toISOString() });
       await setDoc(doc(db, "users_by_id", userId), { uid });
       await setDoc(doc(db, "resources", uid), { money:1000, gold:10, elixir:10, oil:10, ddo:0 });
+      
+      // حفظ بيانات الدخول بعد التسجيل
+      saveLoginCredentials(email, pass);
+      
       localStorage.setItem('currentUserData', JSON.stringify({ uid, username:name, userId, emoji:'😎', email }));
-      showToastMsg('تم التسجيل بنجاح! جاري التحويل...');
-      setTimeout(() => { window.location.href = 'https://amanhsn55555-eng.github.io/Mnstty-tody/?v='+Date.now(); }, 1500);
+      showToastMsg('تم التسجيل بنجاح! تم حفظ بيانات الدخول تلقائياً. جاري التحويل...');
+      setTimeout(() => { window.location.href = 'https://amanhsn55555-eng.github.io/Bage-2-chat/?v='+Date.now(); }, 1500);
     } catch(e) { showToastMsg('فشل التسجيل: '+ (e.code === 'auth/email-already-in-use' ? 'بريد مستخدم' : 'خطأ'), false); } finally { showLoading(false); }
   }
+  
   loginBtn.addEventListener('click', handleLoginOrig);
   registerBtn.addEventListener('click', handleRegisterOrig);
-  showRegisterLink.addEventListener('click', (e) => { e.preventDefault(); loginSectionDiv.style.display = 'none'; registerSectionDiv.style.display = 'block'; });
-  showLoginLink.addEventListener('click', (e) => { e.preventDefault(); registerSectionDiv.style.display = 'none'; loginSectionDiv.style.display = 'block'; });
+  showRegisterLink.addEventListener('click', (e) => { e.preventDefault(); loginSectionDiv.style.display = 'none'; registerSectionDiv.style.display = 'block'; clearSavedCredentials(); });
+  showLoginLink.addEventListener('click', (e) => { e.preventDefault(); registerSectionDiv.style.display = 'none'; loginSectionDiv.style.display = 'block'; loadSavedCredentials(); });
+  
+  // تحميل البيانات المحفوظة عند تحميل الصفحة
+  window.addEventListener('load', () => {
+    loadSavedCredentials();
+  });
 </script>
   
 </body>
